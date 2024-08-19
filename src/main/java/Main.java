@@ -1,34 +1,41 @@
 import java.util.Scanner;
 
-public class Main {
-    public static int getTotalCount(String s, int index){
-        if(index == s.length()){
-            return 1;
-        }
+class Animal {
+    String name = "Animal";
 
-        if(index != s.length()-1 && Integer.valueOf(s.substring(index, index + 2)) <= 26){
-            return getTotalCount(s, index + 2) + getTotalCount(s, index + 1);
-        }
-        return getTotalCount(s, index + 1);
+    Animal() {
+        System.out.println("Animal constructor called");
     }
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        while (input.hasNext()){
-            String s = input.next();
-            System.out.println(getTotalCount(s, 0));
-        }
+
+    void sound() {
+        System.out.println("Animal makes a sound");
     }
 }
 
-/*
-Input:
-25114
-1111111111
-3333333333
-0
+class Dog extends Animal {
+    String name = "Dog";
 
-Output:
-6
-89
-1
-* */
+    Dog() {
+//        super(); // Calls the constructor of the superclass (Animal)
+        System.out.println("Dog constructor called");
+    }
+
+    @Override
+    void sound() {
+        super.sound(); // Calls the sound() method of the superclass (Animal)
+        System.out.println("Dog barks");
+    }
+
+    void printNames() {
+        System.out.println("Name in Dog: " + name); // Refers to the name in Dog class
+        System.out.println("Name in Animal: " + super.name); // Refers to the name in Animal class
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+        dog.sound(); // Calls the overridden method in Dog class
+        dog.printNames(); // Demonstrates the use of super to access fields
+    }
+}
